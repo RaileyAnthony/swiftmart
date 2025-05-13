@@ -116,7 +116,7 @@ const AllProducts = () => {
             </h3>
             <button
               onClick={handleRefresh}
-              className="py-1 px-3 bg-primary-500 text-white rounded hover:bg-primary-600 cursor-pointer text-sm"
+              className="py-2 px-3 bg-primary-500 text-white rounded-full hover:bg-primary-600 cursor-pointer text-sm"
             >
               Refresh
             </button>
