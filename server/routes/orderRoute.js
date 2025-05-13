@@ -1,5 +1,5 @@
 import express from "express";
-import authUser from "../middlewares/AuthUser.js";
+import authUser from "../middlewares/authUser.js";
 import {
   getAllOrders,
   getUserOrders,

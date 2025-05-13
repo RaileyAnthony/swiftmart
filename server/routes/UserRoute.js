@@ -5,7 +5,7 @@ import {
   logout,
   register,
 } from "../controllers/UserController.js";
-import authUser from "../middlewares/AuthUser.js";
+import authUser from "../middlewares/authUser.js";
 
 const userRouter = express.Router();
 

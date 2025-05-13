@@ -4,7 +4,7 @@ import {
   deleteAddress,
   getAddress,
 } from "../controllers/addressController.js";
-import authUser from "../middlewares/AuthUser.js";
+import authUser from "../middlewares/authUser.js";
 
 const addressRouter = express.Router();
 
