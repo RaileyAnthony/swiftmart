@@ -127,7 +127,6 @@ const Cart = () => {
         });
         if (data.success) {
           window.location.replace(data.url);
-          setCartItems({});
         } else {
           toast.dismiss();
           toast.error(data.message);
