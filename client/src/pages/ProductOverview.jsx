@@ -133,7 +133,7 @@ const ProductOverview = () => {
               navigate("/products");
               scrollTo(0, 0);
             }}
-            className="mx-auto cursor-pointer px-12 my-16 py-2.5 border rounded-full text-primary-500 hover:bg-primary-500/10 transition"
+            className="mx-auto cursor-pointer px-12 my-10 py-2.5 border rounded-full text-primary-500 hover:bg-primary-500/10 transition"
           >
             See All Products
           </button>
