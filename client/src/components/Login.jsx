@@ -100,7 +100,7 @@ const Login = () => {
             </span>
           </p>
         )}
-        <button className="text-sm sm:text-base bg-primary-500 hover:bg-primary-600 transition-all text-white w-full py-2 rounded-md cursor-pointer">
+        <button className="text-sm sm:text-base bg-primary-500 hover:bg-primary-600 transition-all text-white w-full py-2 rounded-full cursor-pointer">
           {state === "register" ? "Create Account" : "Login"}
         </button>
       </form>
