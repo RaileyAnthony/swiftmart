@@ -45,7 +45,7 @@ const SellerLogin = () => {
           onSubmit={onSubmitHandler}
           className="w-full max-w-md md:max-w-lg lg:max-w-xl bg-background border border-gray-200 shadow-xl rounded-lg p-6 sm:p-10 flex flex-col gap-5 text-sm text-gray-600"
         >
-          <h2 className="text-2xl font-bold text-center text-primary-500">
+          <h2 className="text-2xl font-bold text-secondary-950">
             Seller Login
           </h2>
           <div className="w-full">

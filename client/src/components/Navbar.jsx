@@ -93,27 +93,15 @@ const Navbar = () => {
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <NavLink onClick={() => setOpen(false)} to="/">
+      <NavLink onClick={() => setOpen(false)} to="/" className="mr-4">
         <img
           className="h-8 xl:h-9 hover:opacity-90"
           src={assets.logo}
           alt="SwiftMart logo"
         />
       </NavLink>
-
-      {/* Desktop Menu */}
-      <div className="hidden lg:flex items-center gap-8">
-        <NavLink to="/" className="hover:text-primary-500 transition-all">
-          Home
-        </NavLink>
-        <NavLink
-          to="/products"
-          className="hover:text-primary-500 transition-all"
-        >
-          All Products
-        </NavLink>
-
-        <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 focus-within:outline-2 focus-within:outline-primary-500 px-3 rounded-full">
+      <div className="flex-1 flex justify-center mx-4">
+        <div className="hidden sm:flex items-center text-sm gap-2 border border-gray-300 focus-within:outline-2 focus-within:outline-primary-500 px-3 rounded-full w-full">
           <input
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -129,6 +117,19 @@ const Navbar = () => {
             <img src={assets.search_icon} alt="search" className="w-5 h-4" />
           </button>
         </div>
+      </div>
+
+      {/* Desktop Menu */}
+      <div className="hidden lg:flex items-center gap-8 ml-4">
+        <NavLink to="/" className="hover:text-primary-500 transition-all">
+          Home
+        </NavLink>
+        <NavLink
+          to="/products"
+          className="hover:text-primary-500 transition-all"
+        >
+          All Products
+        </NavLink>
 
         <div
           onClick={() => navigate("/cart")}
@@ -226,10 +227,10 @@ const Navbar = () => {
         <div
           className={`${
             open ? "flex" : "hidden"
-          } absolute top-[60px] z-999 left-0 w-full bg-background shadow-md py-4 flex-col items-start gap-4 px-6 md:px-16 lg:px-24 xl:px-32 text-sm lg:hidden`}
+          } absolute top-[63px] z-999 left-0 w-full bg-background shadow-md py-4 flex-col items-start gap-4 px-6 md:px-16 lg:px-24 xl:px-32 text-sm lg:hidden`}
         >
           {/* Mobile Search Bar */}
-          <div className="flex items-center w-full gap-2 border border-gray-300 rounded-full px-4 py-2 mb-2">
+          <div className="flex sm:hidden items-center w-full gap-2 border border-gray-300 rounded-full px-4 py-2 mb-2">
             <input
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={handleKeyPress}

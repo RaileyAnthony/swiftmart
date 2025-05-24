@@ -41,9 +41,20 @@ const Login = () => {
         onClick={(e) => e.stopPropagation()}
         className="flex flex-col gap-4 m-auto items-start p-8 py-12 w-80 sm:w-[352px] rounded-lg shadow-xl border border-gray-300 bg-background"
       >
-        <p className="text-2xl font-bold m-auto text-primary-500">
-          User {state === "login" ? "Login" : "Sign Up"}
-        </p>
+        <div className="w-full flex items-center justify-between mb-2">
+          <p className="text-2xl font-bold text-secondary-950 text-left">
+            {state === "login" ? "Login" : "Sign Up"}
+          </p>{" "}
+          <button
+            type="button"
+            aria-label="Close"
+            onClick={() => setShowUserLogin(false)}
+            className="text-secondary-950 hover:text-primary-500 text-3xl font-bold transition-colors cursor-pointer mb-2"
+          >
+            ×
+          </button>
+        </div>
+
         {state === "register" && (
           <div className="w-full">
             <p className="font-medium">Name</p>
@@ -84,7 +95,7 @@ const Login = () => {
             Already have account?{" "}
             <span
               onClick={() => setState("login")}
-              className="text-primary-500 cursor-pointer"
+              className="text-primary-500 cursor-pointer underline-offset-4 underline"
             >
               Log in
             </span>
@@ -94,7 +105,7 @@ const Login = () => {
             Don't have an account?{" "}
             <span
               onClick={() => setState("register")}
-              className="text-primary-500 cursor-pointer"
+              className="text-primary-500 cursor-pointer underline-offset-4 underline hover:text-primary-600 transition-colors"
             >
               Sign up
             </span>
