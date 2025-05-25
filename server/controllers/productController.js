@@ -39,11 +39,19 @@ export const productList = async (req, res) => {
 // Get single product: /api/product/id
 export const productById = async (req, res) => {
   try {
+    // Accept id from POST body
     const { id } = req.body;
+    if (!id)
+      return res
+        .status(400)
+        .json({ success: false, message: "Product ID is required" });
+
     const product = await Product.findById(id);
+    if (!product)
+      return res.json({ success: false, message: "Product not found" });
+
     res.json({ success: true, product });
   } catch (error) {
-    console.log(error.message);
     res.json({ success: false, message: error.message });
   }
 };
@@ -56,6 +64,42 @@ export const changeStock = async (req, res) => {
     res.json({ success: true, message: "Stock Updated" });
   } catch (error) {
     console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// Update product: /api/product/edit
+export const editProduct = async (req, res) => {
+  try {
+    const { id } = req.body;
+    let productData = JSON.parse(req.body.productData);
+    let updateData = { ...productData };
+
+    // If new images are sent, upload and update
+    if (req.files && req.files.length > 0) {
+      let imagesUrl = await Promise.all(
+        req.files.map(async (item) => {
+          let result = await cloudinary.uploader.upload(item.path, {
+            resource_type: "image",
+          });
+          return result.secure_url;
+        })
+      );
+      updateData.image = imagesUrl;
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+    if (!updatedProduct)
+      return res.json({ success: false, message: "Product not found" });
+
+    res.json({
+      success: true,
+      message: "Product Updated",
+      product: updatedProduct,
+    });
+  } catch (error) {
     res.json({ success: false, message: error.message });
   }
 };

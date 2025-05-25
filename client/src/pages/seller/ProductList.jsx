@@ -1,9 +1,11 @@
 import React from "react";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom"; // <-- Add this import
 
 const ProductList = () => {
   const { products, currency, axios, fetchProducts } = useAppContext();
+  const navigate = useNavigate(); // <-- Add this line
 
   const toggleStock = async (id, inStock) => {
     try {
@@ -41,6 +43,10 @@ const ProductList = () => {
                 <th className="px-4 py-3 text-base font-semibold truncate">
                   In Stock
                 </th>
+                <th className="px-4 py-3 text-base font-semibold truncate">
+                  Action
+                </th>{" "}
+                {/* Added for clarity */}
               </tr>
             </thead>
             <tbody className="text-sm text-gray-500">
@@ -68,14 +74,24 @@ const ProductList = () => {
                       <input
                         onChange={() =>
                           toggleStock(product._id, !product.inStock)
-                        } // Use onChange
-                        checked={product.inStock} // Controlled
+                        }
+                        checked={product.inStock}
                         type="checkbox"
                         className="sr-only peer"
                       />
                       <div className="w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-primary-500 transition-colors duration-200"></div>
                       <span className="dot absolute left-1 top-1 w-5 h-5 bg-background rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
                     </label>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() =>
+                        navigate(`/seller/edit-product/${product._id}`)
+                      }
+                      className="text-blue-500 underline"
+                    >
+                      Edit
+                    </button>
                   </td>
                 </tr>
               ))}
