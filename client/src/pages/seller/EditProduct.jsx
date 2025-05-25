@@ -12,39 +12,25 @@ const EditProduct = () => {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [offerPrice, setOfferPrice] = useState("");
-  const [existingImages, setExistingImages] = useState([]);
-  const [loading, setLoading] = useState(true);
   const { axios } = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Fetch product data by ID
     const fetchProduct = async () => {
-      try {
-        // Your backend expects POST to /api/product/id with { id }
-        const { data } = await axios.post("/api/product/id", { id });
-        if (data.success && data.product) {
-          const product = data.product;
-          setName(product.name || "");
-          setDescription(
-            Array.isArray(product.description)
-              ? product.description.join("\n")
-              : product.description || ""
-          );
-          setCategory(product.category || "");
-          setPrice(product.price || "");
-          setOfferPrice(product.offerPrice || "");
-          setExistingImages(product.image || []);
-        } else {
-          toast.error("Product not found");
-        }
-      } catch (error) {
-        toast.error("Failed to fetch product details");
+      const { data } = await axios.get(`/api/product/id?id=${id}`);
+      if (data.success) {
+        const product = data.product;
+        setName(product.name);
+        setDescription(product.description.join("\n"));
+        setCategory(product.category);
+        setPrice(product.price);
+        setOfferPrice(product.offerPrice);
+        // For images, skip for now
       }
-      setLoading(false);
     };
     fetchProduct();
-    // eslint-disable-next-line
-  }, [id]);
+  }, [id, axios]);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -60,9 +46,7 @@ const EditProduct = () => {
       formData.append("id", id);
       formData.append("productData", JSON.stringify(productData));
       for (let i = 0; i < files.length; i++) {
-        if (files[i]) {
-          formData.append("images", files[i]);
-        }
+        formData.append("images", files[i]);
       }
       const { data } = await axios.post("/api/product/edit", formData);
       if (data.success) {
@@ -72,11 +56,9 @@ const EditProduct = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message || "Failed to update product");
+      toast.error(error.message);
     }
   };
-
-  if (loading) return <div className="p-10 text-center">Loading...</div>;
 
   return (
     <div>
@@ -109,8 +91,6 @@ const EditProduct = () => {
                     src={
                       files[index]
                         ? URL.createObjectURL(files[index])
-                        : existingImages[index]
-                        ? existingImages[index]
                         : assets.upload_area
                     }
                     alt="uploadArea"
@@ -148,7 +128,6 @@ const EditProduct = () => {
               rows={4}
               className="border border-gray-300 text-secondary-900/70 rounded w-full p-2 mt-1 outline-primary-500 resize-none"
               placeholder="Enter product description"
-              required
             ></textarea>
           </div>
           <div className="w-full flex flex-col gap-1">

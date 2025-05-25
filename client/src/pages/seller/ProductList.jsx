@@ -45,8 +45,7 @@ const ProductList = () => {
                 </th>
                 <th className="px-4 py-3 text-base font-semibold truncate">
                   Action
-                </th>{" "}
-                {/* Added for clarity */}
+                </th>
               </tr>
             </thead>
             <tbody className="text-sm text-gray-500">

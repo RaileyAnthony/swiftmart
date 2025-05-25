@@ -74,8 +74,7 @@ export const editProduct = async (req, res) => {
     const { id } = req.body;
     let productData = JSON.parse(req.body.productData);
     let updateData = { ...productData };
-
-    // If new images are sent, upload and update
+    // If there are images, upload and update them
     if (req.files && req.files.length > 0) {
       let imagesUrl = await Promise.all(
         req.files.map(async (item) => {
@@ -87,19 +86,10 @@ export const editProduct = async (req, res) => {
       );
       updateData.image = imagesUrl;
     }
-
-    const updatedProduct = await Product.findByIdAndUpdate(id, updateData, {
-      new: true,
-    });
-    if (!updatedProduct)
-      return res.json({ success: false, message: "Product not found" });
-
-    res.json({
-      success: true,
-      message: "Product Updated",
-      product: updatedProduct,
-    });
+    await Product.findByIdAndUpdate(id, updateData);
+    res.json({ success: true, message: "Product Updated" });
   } catch (error) {
+    console.log(error.message);
     res.json({ success: false, message: error.message });
   }
 };
