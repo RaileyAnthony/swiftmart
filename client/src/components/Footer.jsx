@@ -7,9 +7,9 @@ const Footer = () => {
         <div>
           <img className="h-9" src={assets.logo} alt="SwiftMart logo" />
           <p className="max-w-[410px] mt-[16px] text-background">
-            Get the freshest groceries delivered straight to your door in no
-            time with convenience, quality, and speed all in one seamless
-            experience.
+            Get everything you need delivered in just minutes, carefully
+            handpicked for freshness, and designed to bring unbeatable
+            convenience straight to your doorstep.
           </p>
         </div>
         <div className="flex flex-wrap justify-start w-full md:w-[45%] gap-20">

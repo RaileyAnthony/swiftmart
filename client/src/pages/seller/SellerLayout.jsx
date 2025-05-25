@@ -41,7 +41,6 @@ const SellerLayout = () => {
           />
         </Link>
         <div className="flex items-center gap-3 md:gap-5 text-gray-500">
-          <p className="text-sm md:text-base">Hi! Admin</p>
           <button
             onClick={logout}
             className="cursor-pointer border hover:bg-secondary-900/10 transition-all rounded-full text-sm sm:text-base px-5 py-2.5 md:px-8 md:py-2.5"
