@@ -78,7 +78,7 @@ const ProductCard = ({ product }) => {
                   Add
                 </button>
               ) : (
-                <div className="flex items-center justify-center gap-2 md:w-20 w-16 h-[34px] bg-primary-500/10 rounded-[5px] select-none">
+                <div className="flex items-center justify-center gap-2 md:w-20 w-16 h-[34px] bg-primary-500/10 rounded-full select-none">
                   <button
                     onClick={() => {
                       handleRemoveFromCart(product._id); // Use the wrapper function
