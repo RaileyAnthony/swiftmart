@@ -18,7 +18,7 @@ const Footer = () => {
               <h3 className="font-semibold text-base sm:text-lg text-background mb-[16px]">
                 {section.title}
               </h3>
-              <ul className="text-sm space-y-1 text-background">
+              <ul className="text-sm space-y-2 text-background">
                 {section.links.map((link, i) => (
                   <li key={i}>
                     <a

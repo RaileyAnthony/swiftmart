@@ -173,6 +173,34 @@ const Cart = () => {
     removeFromCart(productId);
   };
 
+  const isCartEmpty = cartArray.length === 0;
+
+  if (products.length > 0 && cartItems && isCartEmpty) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-[60vh] mt-[137px] mb-[80px] px-6 md:px-16 lg:px-24 xl:px-32">
+        <h1 className="text-[30px] sm:text-[36px] md:text-[42px] font-bold leading-tight text-secondary-950 mb-4 text-center">
+          Your Shopping Cart is Empty!
+        </h1>
+        <p className="text-lg text-gray-500 mb-4 text-center">
+          Your cart is currently empty
+          <br />
+          <span className="block mt-2">
+            You can add the products to your cart to continue shopping.
+          </span>
+        </p>
+        <button
+          onClick={() => {
+            navigate("/products");
+            window.scrollTo(0, 0);
+          }}
+          className="bg-primary-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-primary-600 transition"
+        >
+          Go to Products
+        </button>
+      </div>
+    );
+  }
+
   return products.length > 0 && cartItems ? (
     <div className="flex flex-col md:flex-row mt-[137px] mb-[80px] px-6 md:px-16 lg:px-24 xl:px-32">
       <div className="flex-1 max-w-4xl">
@@ -289,7 +317,7 @@ const Cart = () => {
             </button>
             {showAddress && (
               <div
-                ref={addressDropdownRef} // Attach the ref to the dropdown
+                ref={addressDropdownRef}
                 className="absolute top-12 py-1 bg-background border border-gray-300 text-sm w-full"
               >
                 {addresses.map((address, index) => (
