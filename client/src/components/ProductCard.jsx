@@ -71,7 +71,7 @@ const ProductCard = ({ product }) => {
             >
               {!cartItems[product._id] ? (
                 <button
-                  className="flex items-center justify-center gap-1 bg-primary-500/10 border border-primary-500/40 md:w-[80px] w-[64px] h-[34px] rounded-[5px] text-primary-500 cursor-pointer"
+                  className="flex items-center justify-center gap-1 bg-primary-500/10 border border-primary-500/40 md:w-[80px] w-[64px] h-[34px] rounded-full text-primary-500 cursor-pointer"
                   onClick={() => handleAddToCart(product._id)} // Use the wrapper function
                 >
                   <img src={assets.cart_icon} alt="Cart icon" />

@@ -14,9 +14,8 @@ const MainBanner = () => {
             </h1>
             <p className="text-base sm:text-lg">
               Get everything you need delivered in just minutes, carefully
-              handpicked for freshness, backed by reliable service, and designed
-              to bring unbeatable convenience straight to your doorstep every
-              single time.
+              handpicked for freshness, and designed to bring unbeatable
+              convenience straight to your doorstep.
             </p>
           </div>
           <div>
@@ -24,7 +23,7 @@ const MainBanner = () => {
               to={"/products"}
               className="inline-block bg-secondary-950 text-background rounded-full px-6 py-2.5 text-sm sm:text-base hover:bg-secondary-900 transition"
             >
-              Shop Now
+              Start Shopping
             </Link>
           </div>
         </div>
