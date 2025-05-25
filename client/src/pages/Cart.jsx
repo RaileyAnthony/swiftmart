@@ -178,24 +178,20 @@ const Cart = () => {
   if (products.length > 0 && cartItems && isCartEmpty) {
     return (
       <div className="flex flex-col justify-center items-center min-h-[60vh] mt-[137px] mb-[80px] px-6 md:px-16 lg:px-24 xl:px-32">
-        <h1 className="text-[30px] sm:text-[36px] md:text-[42px] font-bold leading-tight text-secondary-950 mb-4 text-center">
+        <h1 className="text-[30px] sm:text-[36px] md:text-[42px] font-bold leading-tight text-center text-secondary-950 mb-2">
           Your Shopping Cart is Empty!
         </h1>
-        <p className="text-lg text-gray-500 mb-4 text-center">
-          Your cart is currently empty
-          <br />
-          <span className="block mt-2">
-            You can add the products to your cart to continue shopping.
-          </span>
+        <p className="text-center text-base sm:text-lg text-secondary-900 mb-[32px]">
+          You can add the products to your cart to continue shopping.
         </p>
         <button
           onClick={() => {
             navigate("/products");
             window.scrollTo(0, 0);
           }}
-          className="bg-primary-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-primary-600 transition"
+          className="bg-primary-500 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary-600 transition cursor-pointer"
         >
-          Go to Products
+          Start Shopping
         </button>
       </div>
     );
