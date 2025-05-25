@@ -182,9 +182,21 @@ const EditProduct = () => {
               />
             </div>
           </div>
-          <button className="px-8 py-2.5 text-sm sm:text-base bg-primary-500 hover:bg-primary-600 transition-all cursor-pointer text-white font-medium rounded-full">
-            Update Product
-          </button>
+          <div className="flex gap-3 mt-6">
+            <button
+              type="button"
+              className="px-8 py-2.5 text-sm sm:text-base font-medium bg-accent text-primary-500 hover:bg-primary-500/50 hover:text-background transition rounded-full cursor-pointer"
+              onClick={() => navigate("/seller/product-list")}
+            >
+              Back to Product List
+            </button>
+            <button
+              type="submit"
+              className="px-8 py-2.5 text-sm sm:text-base bg-primary-500 hover:bg-primary-600 transition-all cursor-pointer text-white font-medium rounded-full"
+            >
+              Update Product
+            </button>
+          </div>
         </form>
       </div>
     </div>

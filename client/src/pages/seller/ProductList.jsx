@@ -1,11 +1,11 @@
 import React from "react";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom"; // <-- Add this import
+import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
   const { products, currency, axios, fetchProducts } = useAppContext();
-  const navigate = useNavigate(); // <-- Add this line
+  const navigate = useNavigate();
 
   const toggleStock = async (id, inStock) => {
     try {
@@ -27,8 +27,9 @@ const ProductList = () => {
         <h1 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold leading-tight mb-[40px]">
           All Products
         </h1>
-        <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md bg-background border border-gray-500/20">
-          <table className="md:table-auto table-fixed w-full overflow-hidden">
+        {/* Add overflow-x-auto to enable horizontal scrolling on small screens */}
+        <div className="overflow-x-auto w-full rounded-md bg-background border border-gray-500/20">
+          <table className="min-w-[700px] w-full">
             <thead className="text-gray-900 text-sm text-left">
               <tr>
                 <th className="px-4 py-3 text-base font-semibold truncate">
@@ -37,7 +38,7 @@ const ProductList = () => {
                 <th className="px-4 py-3 text-base font-semibold truncate">
                   Category
                 </th>
-                <th className="px-4 py-3 text-base font-semibold truncate hidden md:block">
+                <th className="px-4 py-3 text-base font-semibold truncate hidden md:table-cell">
                   Selling Price
                 </th>
                 <th className="px-4 py-3 text-base font-semibold truncate">
@@ -64,7 +65,7 @@ const ProductList = () => {
                     </span>
                   </td>
                   <td className="px-4 py-3">{product.category}</td>
-                  <td className="px-4 py-3 max-sm:hidden">
+                  <td className="px-4 py-3 hidden md:table-cell">
                     {currency}
                     {product.offerPrice}
                   </td>
@@ -87,7 +88,7 @@ const ProductList = () => {
                       onClick={() =>
                         navigate(`/seller/edit-product/${product._id}`)
                       }
-                      className="text-blue-500 underline"
+                      className="text-blue-500 underline cursor-pointer"
                     >
                       Edit
                     </button>
