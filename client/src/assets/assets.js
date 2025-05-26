@@ -25,6 +25,9 @@ import trust_icon from "./trust_icon.svg";
 import black_arrow_icon from "./black_arrow_icon.svg";
 import white_arrow_icon from "./white_arrow_icon.svg";
 import main_banner_bg from "./main_banner_bg.png";
+import offer1 from "./offer1.png";
+import offer2 from "./offer2.png";
+import offer3 from "./offer3.png";
 import add_address_image from "./add_address_image.svg";
 import organic_vegetable_image from "./organic_vegetable_image.png";
 import fresh_fruits_image from "./fresh_fruits_image.png";
@@ -34,6 +37,9 @@ import grain_image from "./grain_image.png";
 
 export const assets = {
   logo,
+  offer1,
+  offer2,
+  offer3,
   search_icon2,
   whyUs_bg,
   bakery_image,

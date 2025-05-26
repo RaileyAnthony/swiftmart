@@ -55,14 +55,17 @@ const ProductCard = ({ product }) => {
           </div>
 
           <div className="flex items-end justify-between mt-[16px]">
-            <p className="flex flex-col md:text-xl text-base font-medium text-primary-500">
-              {currency}
-              {product.offerPrice}{" "}
+            {/* FIX: Don't nest div inside p, use div here */}
+            <div className="flex flex-col md:text-xl text-base font-medium text-primary-500">
+              <div>
+                <span className="text-sm">{currency}</span>
+                {product.offerPrice}
+              </div>
               <span className="text-secondary-900/60 md:text-sm text-xs line-through">
                 {currency}
                 {product.price}
               </span>
-            </p>
+            </div>
             <div
               onClick={(e) => {
                 e.stopPropagation();
