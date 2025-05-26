@@ -334,7 +334,7 @@ const Cart = () => {
                       </p>
                       <button
                         onClick={() => deleteAddress(address._id)}
-                        className="text-red-500 text-xs ml-2 hover:underline"
+                        className="text-red-500 cursor-pointer text-xs ml-2 hover:underline"
                       >
                         Delete
                       </button>
