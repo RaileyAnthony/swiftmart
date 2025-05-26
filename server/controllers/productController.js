@@ -94,25 +94,32 @@ export const editProduct = async (req, res) => {
   }
 };
 
+// Delete product: /api/product/delete/:id
 export const deleteProduct = async (req, res) => {
   try {
-    const { id } = req.body;
-    if (!id)
-      return res
-        .status(400)
-        .json({ success: false, message: "Product ID is required" });
+    const productId = req.params.id;
+    const sellerId = req.sellerId; // Make sure this is set by your authSeller middleware
 
-    const product = await Product.findById(id);
-    if (!product)
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
+    console.log(`Delete request received for product ID: ${productId}`);
 
-    // Delete images from Cloudinary
+    // Ensure the product belongs to the seller
+    const product = await Product.findOne({ _id: productId, sellerId });
+    console.log(`Product found: ${product ? JSON.stringify(product) : "None"}`);
+
+    if (!product) {
+      console.log(
+        `Product not found or unauthorized access for seller ID: ${sellerId}`
+      );
+      return res.status(404).json({
+        success: false,
+        message: "Product not found or you do not have permission to delete it",
+      });
+    }
+
+    // Delete images from Cloudinary if exists
     if (Array.isArray(product.image)) {
       await Promise.all(
         product.image.map(async (imgUrl) => {
-          // Extract public_id from the URL (handles folders/nested structure)
           const matches = imgUrl.match(
             /\/upload\/(?:v\d+\/)?(.+?)(?:\.[a-zA-Z0-9]+)?$/
           );
@@ -123,7 +130,6 @@ export const deleteProduct = async (req, res) => {
                 resource_type: "image",
               });
             } catch (err) {
-              // Log and continue; don't block delete
               console.log(`Failed to delete image ${publicId}:`, err.message);
             }
           }
@@ -131,14 +137,18 @@ export const deleteProduct = async (req, res) => {
       );
     }
 
-    await Product.findByIdAndDelete(id);
+    await Product.deleteOne({ _id: productId });
+    console.log(`Product with ID ${productId} deleted successfully`);
 
     res.json({
       success: true,
       message: "Product and images deleted successfully",
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Error" });
+    console.error(`Error while deleting product: ${error.message}`);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete product. Please try again later.",
+    });
   }
 };
