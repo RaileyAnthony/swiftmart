@@ -93,3 +93,52 @@ export const editProduct = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.body;
+    if (!id)
+      return res
+        .status(400)
+        .json({ success: false, message: "Product ID is required" });
+
+    const product = await Product.findById(id);
+    if (!product)
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+
+    // Delete images from Cloudinary
+    if (Array.isArray(product.image)) {
+      await Promise.all(
+        product.image.map(async (imgUrl) => {
+          // Extract public_id from the URL (handles folders/nested structure)
+          const matches = imgUrl.match(
+            /\/upload\/(?:v\d+\/)?(.+?)(?:\.[a-zA-Z0-9]+)?$/
+          );
+          if (matches && matches[1]) {
+            const publicId = matches[1];
+            try {
+              await cloudinary.uploader.destroy(publicId, {
+                resource_type: "image",
+              });
+            } catch (err) {
+              // Log and continue; don't block delete
+              console.log(`Failed to delete image ${publicId}:`, err.message);
+            }
+          }
+        })
+      );
+    }
+
+    await Product.findByIdAndDelete(id);
+
+    res.json({
+      success: true,
+      message: "Product and images deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Error" });
+  }
+};

@@ -2,6 +2,7 @@ import express from "express";
 import {
   addProduct,
   changeStock,
+  deleteProduct,
   editProduct,
   productById,
   productList,
@@ -16,5 +17,6 @@ productRouter.get("/list", productList);
 productRouter.get("/id", productById);
 productRouter.post("/stock", authSeller, changeStock);
 productRouter.post("/edit", upload.array(["images"]), authSeller, editProduct);
+productRouter.post("/delete", authSeller, deleteProduct);
 
 export default productRouter;
