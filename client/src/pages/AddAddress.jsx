@@ -171,7 +171,10 @@ const AddAddress = () => {
             <div className="flex gap-4 mt-6">
               <button
                 type="button"
-                onClick={() => navigate("/cart")}
+                onClick={() => {
+                  navigate("/cart");
+                  window.scrollTo(0, 0);
+                }}
                 className="flex-1 text-sm sm:text-base rounded-full border border-primary-500 text-primary-500 py-2.5 hover:bg-primary-500/10 transition cursor-pointer"
               >
                 Back to Cart

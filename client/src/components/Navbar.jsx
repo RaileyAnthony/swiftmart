@@ -38,7 +38,7 @@ const Navbar = () => {
   const handleSearch = () => {
     if (searchQuery.length > 0) {
       navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
-      setOpen(false); // Close mobile menu after search
+      setOpen(false);
     }
   };
 
@@ -127,12 +127,16 @@ const Navbar = () => {
         <NavLink
           to="/products"
           className="hover:text-primary-500 transition-all"
+          onClick={() => window.scrollTo(0, 0)}
         >
           All Products
         </NavLink>
 
         <div
-          onClick={() => navigate("/cart")}
+          onClick={() => {
+            navigate("/cart");
+            window.scrollTo(0, 0);
+          }}
           className="relative cursor-pointer"
         >
           <img
@@ -177,6 +181,7 @@ const Navbar = () => {
                 onClick={() => {
                   setShowDropdown(false);
                   navigate("/my-orders");
+                  window.scrollTo(0, 0);
                 }}
                 className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2 transition-colors"
               >
@@ -198,7 +203,10 @@ const Navbar = () => {
 
       <div className="flex items-center gap-6 lg:hidden">
         <div
-          onClick={() => navigate("/cart")}
+          onClick={() => {
+            navigate("/cart");
+            window.scrollTo(0, 0);
+          }}
           className="relative cursor-pointer"
         >
           <img
@@ -255,7 +263,10 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to="/products"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false);
+              window.scrollTo(0, 0);
+            }}
             className="w-full py-2 hover:text-primary-500 text-center"
           >
             All Products
@@ -263,7 +274,10 @@ const Navbar = () => {
           {user && (
             <NavLink
               to="/my-orders"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                window.scrollTo(0, 0);
+              }}
               className="w-full py-2 hover:text-primary-500 text-center"
             >
               My Orders

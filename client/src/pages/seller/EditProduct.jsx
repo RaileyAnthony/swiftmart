@@ -186,7 +186,10 @@ const EditProduct = () => {
             <button
               type="button"
               className="px-8 py-2.5 text-sm sm:text-base font-medium bg-accent text-primary-500 hover:bg-primary-500/50 hover:text-background transition rounded-full cursor-pointer"
-              onClick={() => navigate("/seller/product-list")}
+              onClick={() => {
+                navigate("/seller/product-list");
+                window.scrollTo(0, 0);
+              }}
             >
               Back to Product List
             </button>

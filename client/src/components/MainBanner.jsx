@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { assets } from "../assets/assets.js";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,9 +9,25 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 const bannerImages = [assets.offer1, assets.offer2, assets.offer3];
 
 const MainBanner = () => {
-  // Create refs for the buttons
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const swiperRef = useRef(null);
+
+  useEffect(() => {
+    if (
+      swiperRef.current &&
+      prevRef.current &&
+      nextRef.current &&
+      swiperRef.current.params &&
+      swiperRef.current.navigation
+    ) {
+      swiperRef.current.params.navigation.prevEl = prevRef.current;
+      swiperRef.current.params.navigation.nextEl = nextRef.current;
+      swiperRef.current.navigation.destroy();
+      swiperRef.current.navigation.init();
+      swiperRef.current.navigation.update();
+    }
+  }, [prevRef, nextRef]);
 
   return (
     <div className="relative">
@@ -25,12 +41,14 @@ const MainBanner = () => {
             <p className="text-base sm:text-lg">
               Get everything you need delivered in just minutes, carefully
               handpicked for freshness and quality, all designed to bring
-              unmatched convenience and comfort right to your doorstep.
+              unmatched convenience and comfort right to your doorstep, faster,
+              easier, and more reliably than ever.
             </p>
           </div>
           <div>
             <Link
               to={"/products"}
+              onClick={() => window.scrollTo(0, 0)}
               className="inline-block bg-secondary-950 text-background rounded-full px-6 py-2.5 text-sm sm:text-base hover:bg-secondary-900 transition"
             >
               Start Shopping
@@ -45,18 +63,12 @@ const MainBanner = () => {
             autoplay={{ delay: 4000, disableOnInteraction: false }}
             loop={true}
             className="rounded-2xl w-full h-full"
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+            }}
             navigation={{
               prevEl: prevRef.current,
               nextEl: nextRef.current,
-            }}
-            // Fix for refs not being ready on first render
-            onInit={(swiper) => {
-              // @ts-ignore
-              swiper.params.navigation.prevEl = prevRef.current;
-              // @ts-ignore
-              swiper.params.navigation.nextEl = nextRef.current;
-              swiper.navigation.init();
-              swiper.navigation.update();
             }}
           >
             {bannerImages.map((img, idx) => (
