@@ -89,7 +89,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 border-t-[10px] border-t-primary-500 bg-background shadow-sm transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 border-t-[10px] border-t-primary-500 bg-background transition-all duration-300 ${
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
