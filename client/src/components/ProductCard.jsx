@@ -40,19 +40,6 @@ const ProductCard = ({ product }) => {
           <p className="text-secondary-950 text-base sm:text-lg font-medium truncate w-full">
             {product.name}
           </p>
-          <div className="flex items-center gap-0.5">
-            {Array(5)
-              .fill("")
-              .map((_, i) => (
-                <img
-                  key={i}
-                  className="w-3 md:w-3.5"
-                  src={i < 5 ? assets.star_icon : assets.star_dull_icon}
-                  alt="Star icon"
-                />
-              ))}
-            <p>(5)</p>
-          </div>
 
           <div className="flex items-end justify-between mt-[16px]">
             {/* FIX: Don't nest div inside p, use div here */}

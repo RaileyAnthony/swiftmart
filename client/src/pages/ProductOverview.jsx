@@ -61,20 +61,6 @@ const ProductOverview = () => {
           <div className="text-sm w-full md:w-1/2">
             <h1 className="text-[32px] font-bold">{product.name}</h1>
 
-            <div className="flex items-center gap-0.5 mt-1">
-              {Array(5)
-                .fill("")
-                .map((_, i) => (
-                  <img
-                    key={`star-${i}`}
-                    src={i < 5 ? assets.star_icon : assets.star_dull_icon}
-                    alt="Star icons"
-                    className="w-3 md:w-3.5"
-                  />
-                ))}
-              <p className="text-base ml-2">(5)</p>
-            </div>
-
             <div className="mt-6">
               <p className="text-secondary-900/70 line-through">
                 MRP: {currency}
