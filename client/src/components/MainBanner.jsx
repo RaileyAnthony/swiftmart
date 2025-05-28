@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { assets } from "../assets/assets.js";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,12 +6,33 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-const bannerImages = [assets.offer1, assets.offer2, assets.offer3];
+// Custom hook to detect 2xl breakpoint (Tailwind: min-width 1536px)
+const use2xl = () => {
+  const [is2xl, setIs2xl] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1536px)");
+    const listener = () => setIs2xl(media.matches);
+    listener(); // initial check
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, []);
+  return is2xl;
+};
 
 const MainBanner = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
+
+  const is2xl = use2xl();
+
+  // Adjust images for 2xl breakpoint
+  const bannerImages = [
+    is2xl ? assets.offer1_2xl : assets.offer1,
+    is2xl ? assets.offer2_2xl : assets.offer2,
+    is2xl ? assets.offer3_2xl : assets.offer3,
+  ];
 
   useEffect(() => {
     if (
@@ -31,7 +52,7 @@ const MainBanner = () => {
 
   return (
     <div className="relative">
-      <div className="mt-[137px] mb-[80px] grid grid-cols-1 2xl:grid-cols-2 items-stretch gap-8">
+      <div className="mt-[137px] mb-[80px] grid grid-cols-1 xl:grid-cols-2 items-stretch gap-8">
         {/* Left: Text Content */}
         <div className="bg-primary-500 text-background p-8 lg:p-10 rounded-[20px] flex flex-col gap-10">
           <div className="flex flex-col gap-4">

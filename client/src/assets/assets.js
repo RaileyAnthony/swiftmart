@@ -24,8 +24,11 @@ import black_arrow_icon from "./black_arrow_icon.svg";
 import white_arrow_icon from "./white_arrow_icon.svg";
 import main_banner_bg from "./main_banner_bg.png";
 import offer1 from "./offer1.png";
+import offer1_2xl from "./offer1_2xl.png";
 import offer2 from "./offer2.png";
+import offer2_2xl from "./offer2_2xl.png";
 import offer3 from "./offer3.png";
+import offer3_2xl from "./offer3_2xl.png";
 import add_address_image from "./add_address_image.svg";
 import organic_vegetable_image from "./organic_vegetable_image.png";
 import fresh_fruits_image from "./fresh_fruits_image.png";
@@ -36,8 +39,11 @@ import grain_image from "./grain_image.png";
 export const assets = {
   logo,
   offer1,
+  offer1_2xl,
   offer2,
+  offer2_2xl,
   offer3,
+  offer3_2xl,
   search_icon2,
   whyUs_bg,
   bakery_image,
