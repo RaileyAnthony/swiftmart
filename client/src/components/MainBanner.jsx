@@ -62,8 +62,7 @@ const MainBanner = () => {
             <p className="text-base sm:text-lg">
               Get everything you need delivered in just minutes, carefully
               handpicked for freshness and quality, all designed to bring
-              unmatched convenience and comfort right to your doorstep, faster,
-              easier, and more reliably than ever.
+              unmatched convenience right to your doorstep.
             </p>
           </div>
           <div>
