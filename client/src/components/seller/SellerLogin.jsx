@@ -76,7 +76,7 @@ const SellerLogin = () => {
               className="w-full border border-gray-300 rounded p-2 outline-primary-500 text-secondary-900/70"
             />
           </div>
-          <button className="text-sm sm:text-base bg-primary-500 hover:bg-primary-600 text-white w-full py-2 rounded-md transition-all">
+          <button className="text-sm sm:text-base bg-primary-500 hover:bg-primary-600 text-white w-full py-2 rounded-md transition-all cursor-pointer">
             Login
           </button>
         </form>
