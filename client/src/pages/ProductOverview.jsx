@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Link, useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import toast from "react-hot-toast";
 
 const ProductOverview = () => {
   const { products, navigate, currency, addToCart } = useAppContext();
@@ -14,13 +15,12 @@ const ProductOverview = () => {
   useEffect(() => {
     if (products.length > 0) {
       let productsCopy = products.slice();
-      // Filter by category and exclude the current product
       productsCopy = productsCopy.filter(
         (item) => product.category === item.category && item._id !== id
       );
       setRelatedProducts(productsCopy.slice(0, 5));
     }
-  }, [products, id]); // Add id as a dependency
+  }, [products, id]);
 
   useEffect(() => {
     setThumbnail(product?.image[0] ? product.image[0] : null);
@@ -83,13 +83,17 @@ const ProductOverview = () => {
 
             <div className="flex items-center mt-10 gap-4 text-base">
               <button
-                onClick={() => addToCart(product._id)}
+                onClick={() => {
+                  toast.dismiss(); // ✅ Dismiss previous toasts
+                  addToCart(product._id);
+                }}
                 className="w-full py-3.5 cursor-pointer font-medium bg-accent text-primary-500 hover:bg-primary-500/50 hover:text-background transition rounded-full"
               >
                 Add to Cart
               </button>
               <button
                 onClick={() => {
+                  toast.dismiss(); // ✅ Dismiss previous toasts
                   addToCart(product._id);
                   navigate("/cart");
                 }}
@@ -100,6 +104,7 @@ const ProductOverview = () => {
             </div>
           </div>
         </div>
+
         <div className="flex flex-col items-center mt-20">
           <div className="flex flex-col items-center w-full">
             <h2 className="text-[24px] sm:text-[28px] md:text-[32px] font-semibold leading-tight">
