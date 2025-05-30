@@ -5,10 +5,13 @@ import { useAppContext } from "../context/AppContext.jsx";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const [open, setOpen] = React.useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [visible, setVisible] = useState(true);
-  const [showDropdown, setShowDropdown] = useState(false);
+  // State variables for UI behavior
+  const [open, setOpen] = useState(false); // Controls mobile menu visibility
+  const [lastScrollY, setLastScrollY] = useState(0); // Tracks scroll position
+  const [visible, setVisible] = useState(true); // Controls navbar visibility on scroll
+  const [showDropdown, setShowDropdown] = useState(false); // Controls user profile dropdown
+
+  // Get state and functions from context
   const {
     user,
     setUser,
@@ -20,51 +23,57 @@ const Navbar = () => {
     axios,
   } = useAppContext();
 
+  // Logs the user out and clears user state
   const logout = async () => {
     try {
       const { data } = await axios.get("/api/user/logout");
       if (data.success) {
-        toast.success(data.message);
-        setUser(null);
-        navigate("/");
+        toast.success(data.message); // Show success notification
+        setUser(null); // Clear user state
+        navigate("/"); // Redirect to homepage
       } else {
-        toast.error(data.message);
+        toast.error(data.message); // Show error if logout fails
       }
     } catch (error) {
       toast.error(error.message);
     }
   };
 
+  // Navigates to search results page
   const handleSearch = () => {
     if (searchQuery.length > 0) {
       navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
-      setOpen(false);
+      setOpen(false); // Close mobile menu if open
     }
   };
 
+  // Allows search on Enter key
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSearch();
     }
   };
 
+  // Scroll behavior: hides navbar when scrolling down, shows when scrolling up
   useEffect(() => {
     const controlNavbar = () => {
       if (typeof window !== "undefined") {
         const currentScrollY = window.scrollY;
 
+        // Hide navbar if user scrolls down, show if up
         if (currentScrollY > lastScrollY) {
           setVisible(false);
-          setShowDropdown(false); // Close dropdown when navbar hides
+          setShowDropdown(false); // Close dropdown on scroll down
         } else {
           setVisible(true);
         }
 
+        // Close mobile menu on scroll
         if (open && currentScrollY > 100) {
           setOpen(false);
         }
 
-        setLastScrollY(currentScrollY);
+        setLastScrollY(currentScrollY); // Update last scroll position
       }
     };
 
@@ -74,6 +83,8 @@ const Navbar = () => {
       window.removeEventListener("scroll", controlNavbar);
     };
   }, [lastScrollY, open]);
+
+  // Close dropdown if click occurs outside the profile dropdown container
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (showDropdown && !e.target.closest(".profile-dropdown-container")) {
@@ -93,6 +104,7 @@ const Navbar = () => {
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
+      {/* Logo */}
       <NavLink onClick={() => setOpen(false)} to="/" className="mr-4">
         <img
           className="h-8 xl:h-9 hover:opacity-90"
@@ -100,6 +112,8 @@ const Navbar = () => {
           alt="SwiftMart logo"
         />
       </NavLink>
+
+      {/* Search Bar - Desktop Only */}
       <div className="flex-1 flex justify-center mx-4">
         <div className="hidden sm:flex items-center text-sm gap-2 border border-gray-300 focus-within:outline-2 focus-within:outline-primary-500 px-3 rounded-full w-full">
           <input
@@ -119,7 +133,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Desktop Menu */}
+      {/* Desktop Navigation Links */}
       <div className="hidden lg:flex items-center gap-8 ml-4">
         <NavLink to="/" className="hover:text-primary-500 transition-all">
           Home
@@ -132,6 +146,7 @@ const Navbar = () => {
           All Products
         </NavLink>
 
+        {/* Cart Icon with Item Count */}
         <div
           onClick={() => {
             navigate("/cart");
@@ -149,7 +164,9 @@ const Navbar = () => {
           </button>
         </div>
 
+        {/* Conditional rendering based on login status */}
         {!user ? (
+          // Login button
           <button
             onClick={() => setShowUserLogin(true)}
             className="cursor-pointer px-6 py-2.5 bg-primary-500 hover:bg-primary-600 transition text-background rounded-full"
@@ -157,6 +174,7 @@ const Navbar = () => {
             Login
           </button>
         ) : (
+          // User profile dropdown
           <div className="relative profile-dropdown-container">
             <button
               onClick={(e) => {
@@ -172,6 +190,7 @@ const Navbar = () => {
               />
             </button>
 
+            {/* Dropdown menu */}
             <ul
               className={`${
                 showDropdown ? "block" : "hidden"
@@ -201,7 +220,9 @@ const Navbar = () => {
         )}
       </div>
 
+      {/* Mobile Icons */}
       <div className="flex items-center gap-6 lg:hidden">
+        {/* Cart icon - mobile */}
         <div
           onClick={() => {
             navigate("/cart");
@@ -218,10 +239,9 @@ const Navbar = () => {
             {getCartCount()}
           </button>
         </div>
-        <button
-          onClick={() => (open ? setOpen(false) : setOpen(true))}
-          aria-label="Menu"
-        >
+
+        {/* Hamburger Menu Toggle */}
+        <button onClick={() => setOpen(!open)} aria-label="Menu">
           <img
             src={assets.menu_icon}
             alt="Menu icon"
@@ -230,14 +250,14 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation Drawer */}
       {open && (
         <div
           className={`${
             open ? "flex" : "hidden"
           } absolute top-[63px] z-999 left-0 w-full bg-background shadow-md py-4 flex-col items-start gap-4 px-6 md:px-16 lg:px-24 xl:px-32 text-sm lg:hidden`}
         >
-          {/* Mobile Search Bar */}
+          {/* Mobile Search */}
           <div className="flex sm:hidden items-center w-full gap-2 border border-gray-300 rounded-full px-4 py-2 mb-2">
             <input
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -254,6 +274,8 @@ const Navbar = () => {
               <img src={assets.search_icon} alt="search" className="w-4 h-4" />
             </button>
           </div>
+
+          {/* Mobile nav links */}
           <NavLink
             to="/"
             onClick={() => setOpen(false)}
@@ -283,6 +305,8 @@ const Navbar = () => {
               My Orders
             </NavLink>
           )}
+
+          {/* Mobile Login/Logout */}
           {!user ? (
             <button
               onClick={() => {
