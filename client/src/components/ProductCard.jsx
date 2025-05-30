@@ -8,12 +8,12 @@ const ProductCard = ({ product }) => {
     useAppContext();
 
   const handleAddToCart = (productId) => {
-    toast.dismiss(); // Dismiss any previous toasts
+    toast.dismiss();
     addToCart(productId);
   };
 
   const handleRemoveFromCart = (productId) => {
-    toast.dismiss(); // Dismiss any previous toasts
+    toast.dismiss();
     removeFromCart(productId);
   };
 

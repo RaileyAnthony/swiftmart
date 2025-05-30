@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { assets } from "../assets/assets.js";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,7 +13,7 @@ const use2xl = () => {
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1536px)");
     const listener = () => setIs2xl(media.matches);
-    listener(); // initial check
+    listener();
     media.addEventListener("change", listener);
     return () => media.removeEventListener("change", listener);
   }, []);
@@ -102,7 +102,7 @@ const MainBanner = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          {/* Custom Previous Button */}
+          {/* Previous Button */}
           <button
             ref={prevRef}
             className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white shadow rounded-full p-2 transition cursor-pointer"
@@ -124,7 +124,7 @@ const MainBanner = () => {
               />
             </svg>
           </button>
-          {/* Custom Next Button */}
+          {/* Next Button */}
           <button
             ref={nextRef}
             className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white shadow rounded-full p-2 transition cursor-pointer"
